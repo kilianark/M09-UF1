@@ -1,5 +1,6 @@
 public class Rot13 {
     public static final char[] abc = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+    public static final int lletresAbc = 26;
     public static void main(String args[]) {
         System.out.println(xifraRot13("PepE"));
         System.out.println(desxifraRot13("CrcR"));
@@ -19,7 +20,7 @@ public class Rot13 {
         String ans = "";
         for (int i = 0; i < str.length(); i++) {
             int index = buscaIndex(str.charAt(i)) + 13;
-            if (index > 25) index -= 26;
+            if (index > 25) index -= lletresAbc;
             if(Character.isUpperCase(str.charAt(i))) ans += Character.toUpperCase(abc[index]);
             else ans += abc[index];
         }
@@ -30,7 +31,7 @@ public class Rot13 {
         String ans = "";
         for (int i = 0; i < str.length(); i++) {
             int index = buscaIndex(str.charAt(i)) - 13;
-            if (index < 0) index += 26;
+            if (index < 0) index += lletresAbc;
             if(Character.isUpperCase(str.charAt(i))) ans += Character.toUpperCase(abc[index]);
             else ans += abc[index];
         }
