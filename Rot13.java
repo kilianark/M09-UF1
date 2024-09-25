@@ -1,6 +1,6 @@
 public class Rot13 {
-    public static final char[] abc = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-    public static final int lletresAbc = 26;
+    public static final char[] abc = {'a','à','á','ä','ã','â','b','c','d','e','è','é','ë','ê','f','g','h','i','ì','í','ï','î','j','k','l','m','n','o','ò','ó','ö','õ','ô','p','q','r','s','t','u','ù','ú','ü','û','v','w','x','y','z'};
+    public static final int lletresAbc = 48;
     public static void main(String args[]) {
         System.out.println(xifraRot13("Pe pE"));
         System.out.println(desxifraRot13("Cr cR"));
@@ -24,7 +24,7 @@ public class Rot13 {
                 continue;
             }
             int index = buscaIndex(str.charAt(i)) + 13;
-            if (index > 25) index -= lletresAbc;
+            if (index > lletresAbc-1) index -= lletresAbc;
             if(Character.isUpperCase(str.charAt(i))) ans += Character.toUpperCase(abc[index]);
             else ans += abc[index];
         }
