@@ -3,8 +3,9 @@ public class RotX {
     public static final int lletresAbc = 48;
 
     public static void main(String args[]) throws Exception {
-        System.out.println(xifraRotX("Pe pE", 3));
+        System.out.println(xifraRotX("Sol amarillo", 3));
         System.out.println(desxifraRotX(xifraRotX("Pe pE", 3), 3));
+        forcaBrutaRotX(xifraRotX("Sol amarillo", 3));
     }
 
     public static int buscaIndex(char lletra) {
@@ -54,13 +55,14 @@ public class RotX {
         for (int i = 0; i < lletresAbc; i++) {
             String ans = "";
             for (int j = 0; j < cadenaXifrada.length(); j++) {
-                if(!Character.isLetter(cadenaXifrada.charAt(i))) {
-                    ans +=  cadenaXifrada.charAt(i);
+                if(!Character.isLetter(cadenaXifrada.charAt(j))) {
+                    ans +=  cadenaXifrada.charAt(j);
                     continue;
                 }
                 int index = buscaIndex(cadenaXifrada.charAt(j)) + i;
-                if (index > lletresAbc) index -= lletresAbc;
-                if(Character.isUpperCase(cadenaXifrada.charAt(i))) ans += Character.toUpperCase(abc[index]);
+                if (index >= lletresAbc) index -= lletresAbc;
+                //System.out.println(index);
+                if(Character.isUpperCase(cadenaXifrada.charAt(j))) ans += Character.toUpperCase(abc[index]);
                 else ans += abc[index];
             }
             System.out.println(ans);
