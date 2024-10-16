@@ -46,7 +46,7 @@ public class AES {
         IvParameterSpec ivSpec = new IvParameterSpec(iv);
 
         // Genera hash
-        MessageDigest sha = MessageDigest.getInstance("SHA-256");
+        MessageDigest sha = MessageDigest.getInstance(ALGORISME_HASH);
         byte[] keyBytes = sha.digest(clau.getBytes("UTF-8"));
         SecretKeySpec secretKey = new SecretKeySpec(keyBytes, ALGORISME_XIFRAT);
 
@@ -75,7 +75,7 @@ public class AES {
         System.arraycopy(bIvIMsgXifrat, MIDA_IV, encryptedMessage, 0, encryptedMessage.length);
 
         // Fer hash de la clau
-        MessageDigest sha = MessageDigest.getInstance("SHA-256");
+        MessageDigest sha = MessageDigest.getInstance(ALGORISME_HASH);
         byte[] keyBytes = sha.digest(clau.getBytes("UTF-8"));
         SecretKeySpec secretKey = new SecretKeySpec(keyBytes, ALGORISME_XIFRAT);
 
