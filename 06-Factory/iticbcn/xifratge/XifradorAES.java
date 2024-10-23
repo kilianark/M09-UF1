@@ -6,7 +6,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 
-public class XifradorAES {
+public class XifradorAES implements Xifrador {
     public static final String ALGORISME_XIFRAT = "AES";
     public static final String ALGORISME_HASH = "SHA-256";
     public static final String FORMAT_AES = "AES/CBC/PKCS5Padding";
@@ -38,7 +38,7 @@ public class XifradorAES {
         }
     }
 
-    public static byte[] xifraAES(String msg, String clau) throws Exception {
+    public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
         //obtenir els bytes de l'String
         byte[] msgBytes = msg.getBytes("UTF-8");
         
@@ -63,10 +63,10 @@ public class XifradorAES {
         System.arraycopy(encryptedMessage, 0, encryptedMessageWithIv, iv.length, encryptedMessage.length);
 
         // return iv+msgxifrat
-        return encryptedMessageWithIv;
+        return new TextXifrat(encryptedMessageWithIv);
     }
 
-    public static String desxifraAES (byte[] bIvIMsgXifrat, String clau) throws Exception{
+    public static String desxifra (byte[] bIvIMsgXifrat, String clau) throws Exception{
 
         // Extreure l'IV (preimers 16 bytes)
         System.arraycopy(bIvIMsgXifrat, 0, iv, 0, MIDA_IV);

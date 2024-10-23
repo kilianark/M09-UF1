@@ -2,7 +2,7 @@ package iticbcn.xifratge;
 
 import java.util.*;
 
-public class XifradorMonoalfabetic {
+public class XifradorMonoalfabetic implements Xifrador {
     public static final char[] abc = {'a','à','á','ä','ã','â','b','c', 'ç','d','e','è','é','ë','ê','f','g','h','i','ì','í','ï','î','j','k','l','m','n','ñ','o','ò','ó','ö','õ','ô','p','q','r','s','t','u','ù','ú','ü','û','v','w','x','y','z'};
     public static final char[] permutat = (permutaAlfabet(abc));
     public static void main(String[] args) {
