@@ -4,11 +4,6 @@ public class XifradorRotX implements Xifrador {
     public static final char[] abc = {'a','à','á','ä','ã','â','b','c','d','e','è','é','ë','ê','f','g','h','i','ì','í','ï','î','j','k','l','m','n','ñ','o','ò','ó','ö','õ','ô','p','q','r','s','t','u','ù','ú','ü','û','v','w','x','y','z'};
     public static final int lletresAbc = 48;
 
-    public static void main(String args[]) throws Exception {
-        System.out.println(xifraRotX("Sol amarillo", 3));
-        System.out.println(desxifraRotX(xifraRotX("Pe pE", 3), 3));
-        forcaBrutaRotX(xifraRotX("Sol amarillo", 3));
-    }
 
     public static int buscaIndex(char lletra) {
         int index = 0;
@@ -21,7 +16,7 @@ public class XifradorRotX implements Xifrador {
         return index;
     }
 
-    public static String xifraRotX(String str, int rotation) throws Exception {
+    public String xifraRotX(String str, int rotation) throws Exception {
         if(rotation > abc.length) throw new Exception(String.format("The rotation %n is greater than the max rotation %n", rotation, abc.length));
         String ans = "";
         for (int i = 0; i < str.length(); i++) {
@@ -37,7 +32,7 @@ public class XifradorRotX implements Xifrador {
         return ans;
     }
 
-    public static String desxifraRotX(String str, int rotation) throws Exception {
+    public String desxifraRotX(String str, int rotation) throws Exception {
         if(rotation > abc.length) throw new Exception(String.format("The rotation %n is greater than the max rotation %n", rotation, abc.length));
         String ans = "";
         for (int i = 0; i < str.length(); i++) {
@@ -53,7 +48,7 @@ public class XifradorRotX implements Xifrador {
         return ans;
     }
 
-    public static void forcaBrutaRotX(String cadenaXifrada) {
+    public void forcaBrutaRotX(String cadenaXifrada) {
         for (int i = 0; i < lletresAbc; i++) {
             String ans = "";
             for (int j = 0; j < cadenaXifrada.length(); j++) {

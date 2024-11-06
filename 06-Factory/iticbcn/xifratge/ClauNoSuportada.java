@@ -1,11 +1,8 @@
 package iticbcn.xifratge;
 
-public class ClauNoSuportada extends Exception {
-    public ClauNoSuportada () {
-        super("Clau no suportada");
-    }
+public class ClauNoSuportada extends Exception{
 
-    public ClauNoSuportada (String msg) {
-        super(msg);
+    public ClauNoSuportada(String missatge){
+        super(missatge);
     }
 }
