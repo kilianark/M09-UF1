@@ -2,7 +2,7 @@ package iticbcn.xifratge;
 
 public class XifradorRotX implements Xifrador {
     public static final char[] abc = {'a','à','á','ä','ã','â','b','c','d','e','è','é','ë','ê','f','g','h','i','ì','í','ï','î','j','k','l','m','n','ñ','o','ò','ó','ö','õ','ô','p','q','r','s','t','u','ù','ú','ü','û','v','w','x','y','z'};
-    public static final int lletresAbc = 48;
+    public static final int lletresAbc = 49;
 
 
     public static int buscaIndex(char lletra) {
@@ -22,7 +22,7 @@ public class XifradorRotX implements Xifrador {
             int rotation = Integer.parseInt(clau);
 
             if(rotation < 0 || rotation > abc.length) {
-                throw new ClauNoSuportada(String.format("The rotation %n is greater than the max rotation %n", rotation, abc.length));
+                throw new ClauNoSuportada(String.format("The rotation %d is greater than the max rotation %d", rotation, abc.length));
             }
             String ans = "";
             for (int i = 0; i < str.length(); i++) {
@@ -37,19 +37,19 @@ public class XifradorRotX implements Xifrador {
             }
             return new TextXifrat(ans.getBytes());
         } catch (NumberFormatException e) {
-            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 48");
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 49");
         }
     }
 
     @Override
     public String desxifra(TextXifrat msg, String clau) throws ClauNoSuportada {
         try {
-            String str = msg.toString();
             int rotation = Integer.parseInt(clau);
 
             if(rotation < 0 || rotation > abc.length) {
-                throw new ClauNoSuportada(String.format("The rotation %n is greater than the max rotation %n", rotation, abc.length));
+                throw new ClauNoSuportada(String.format("The rotation %d is greater than the max rotation %d", rotation, abc.length));
             }
+            String str = msg.toString();
             String ans = "";
             for (int i = 0; i < str.length(); i++) {
                 if(!Character.isLetter(str.charAt(i))) {
@@ -63,7 +63,7 @@ public class XifradorRotX implements Xifrador {
             }
             return ans;
         } catch (NumberFormatException e) {
-            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 48");            
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 49");            
         }
     }
 
