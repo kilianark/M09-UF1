@@ -16,36 +16,55 @@ public class XifradorRotX implements Xifrador {
         return index;
     }
 
-    public String xifraRotX(String str, int rotation) throws Exception {
-        if(rotation > abc.length) throw new Exception(String.format("The rotation %n is greater than the max rotation %n", rotation, abc.length));
-        String ans = "";
-        for (int i = 0; i < str.length(); i++) {
-            if(!Character.isLetter(str.charAt(i))) {
-                ans +=  str.charAt(i);
-                continue;
+    @Override
+    public TextXifrat xifra(String str, String clau) throws ClauNoSuportada {
+        try {
+            int rotation = Integer.parseInt(clau);
+
+            if(rotation < 0 || rotation > abc.length) {
+                throw new ClauNoSuportada(String.format("The rotation %n is greater than the max rotation %n", rotation, abc.length));
             }
-            int index = buscaIndex(str.charAt(i)) + rotation;
-            if (index > lletresAbc-1) index -= lletresAbc;
-            if(Character.isUpperCase(str.charAt(i))) ans += Character.toUpperCase(abc[index]);
-            else ans += abc[index];
+            String ans = "";
+            for (int i = 0; i < str.length(); i++) {
+                if(!Character.isLetter(str.charAt(i))) {
+                    ans +=  str.charAt(i);
+                    continue;
+                }
+                int index = buscaIndex(str.charAt(i)) + rotation;
+                if (index > lletresAbc-1) index -= lletresAbc;
+                if(Character.isUpperCase(str.charAt(i))) ans += Character.toUpperCase(abc[index]);
+                else ans += abc[index];
+            }
+            return new TextXifrat(ans.getBytes());
+        } catch (NumberFormatException e) {
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 48");
         }
-        return ans;
     }
 
-    public String desxifraRotX(String str, int rotation) throws Exception {
-        if(rotation > abc.length) throw new Exception(String.format("The rotation %n is greater than the max rotation %n", rotation, abc.length));
-        String ans = "";
-        for (int i = 0; i < str.length(); i++) {
-            if(!Character.isLetter(str.charAt(i))) {
-                ans +=  str.charAt(i);
-                continue;
+    @Override
+    public String desxifra(TextXifrat msg, String clau) throws ClauNoSuportada {
+        try {
+            String str = msg.toString();
+            int rotation = Integer.parseInt(clau);
+
+            if(rotation < 0 || rotation > abc.length) {
+                throw new ClauNoSuportada(String.format("The rotation %n is greater than the max rotation %n", rotation, abc.length));
             }
-            int index = buscaIndex(str.charAt(i)) - rotation;
-            if (index < 0) index += lletresAbc;
-            if(Character.isUpperCase(str.charAt(i))) ans += Character.toUpperCase(abc[index]);
-            else ans += abc[index];
+            String ans = "";
+            for (int i = 0; i < str.length(); i++) {
+                if(!Character.isLetter(str.charAt(i))) {
+                    ans +=  str.charAt(i);
+                    continue;
+                }
+                int index = buscaIndex(str.charAt(i)) - rotation;
+                if (index < 0) index += lletresAbc;
+                if(Character.isUpperCase(str.charAt(i))) ans += Character.toUpperCase(abc[index]);
+                else ans += abc[index];
+            }
+            return ans;
+        } catch (NumberFormatException e) {
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 48");            
         }
-        return ans;
     }
 
     public void forcaBrutaRotX(String cadenaXifrada) {

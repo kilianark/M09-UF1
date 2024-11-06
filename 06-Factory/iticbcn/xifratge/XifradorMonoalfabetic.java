@@ -18,7 +18,11 @@ public class XifradorMonoalfabetic implements Xifrador {
         return result;
     }
 
-    public String xifraMonoAlfa(String cadena) {
+    @Override
+    public TextXifrat xifra(String cadena, String clau) throws  ClauNoSuportada {
+
+        if(clau != null) throw new ClauNoSuportada("Xifratge monoalfabètic no suporta clau != null");
+
         String ans = "";
         List<Character> list = Arrays.asList(fromCharToCharacter(abc));
         for(int i = 0; i < cadena.length(); i++) {
@@ -32,21 +36,26 @@ public class XifradorMonoalfabetic implements Xifrador {
             else ans += cadena.charAt(i);
                 
         }
-        return ans;
+        return new TextXifrat(ans.getBytes());
     }
 
-    public String desxifraMonoAlfa(String cadena) {
+    @Override
+    public String desxifra(TextXifrat cadena, String clau) throws ClauNoSuportada {
+
+        if(clau != null) throw new ClauNoSuportada("Xifratge monoalfabètic no suporta clau != null");
+
         String ans = "";
+        String cadenaStr = cadena.toString();
         List<Character> list = Arrays.asList(fromCharToCharacter(permutat));
-        for (int i = 0; i < cadena.length(); i++) {
-            if (Character.isLetter(cadena.charAt(i))) {
-                if(Character.isUpperCase(cadena.charAt(i))) {
-                    char lower = Character.toLowerCase(cadena.charAt(i));
+        for (int i = 0; i < cadenaStr.length(); i++) {
+            if (Character.isLetter(cadenaStr.charAt(i))) {
+                if(Character.isUpperCase(cadenaStr.charAt(i))) {
+                    char lower = Character.toLowerCase(cadenaStr.charAt(i));
                     ans += Character.toUpperCase(abc[list.indexOf(lower)]);
                 }
-                else ans += abc[list.indexOf(cadena.charAt(i))];
+                else ans += abc[list.indexOf(cadenaStr.charAt(i))];
             }
-            else ans += cadena.charAt(i);
+            else ans += cadenaStr.charAt(i);
         }
         return ans;
     }

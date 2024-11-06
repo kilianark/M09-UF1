@@ -8,7 +8,7 @@ public class XifradorPolialfabetic implements Xifrador {
     public Random random; 
     public int clauSecreta = 223333045;
    
-    public void initRandom(int clauSecreta) {  
+    public void initRandom(long clauSecreta) {  
         random = new Random(clauSecreta);  
     }
 
@@ -23,47 +23,66 @@ public class XifradorPolialfabetic implements Xifrador {
         }
     }
 
-    public String xifraPoliAlfa(String cadena) {
-        StringBuilder ans = new StringBuilder();
-        List<Character> list = Arrays.asList(fromCharToCharacter(abc));
+    @Override
+    public TextXifrat xifra(String cadena, String clau) throws ClauNoSuportada {
+        try {
+            long clauLong = Long.parseLong(clau);
+            initRandom(clauLong);
 
-        for (int i = 0; i < cadena.length(); i++) {
-            permutaAlfabet();  
-            char currentChar = cadena.charAt(i);
-            if (Character.isLetter(currentChar)) {
-                if (Character.isUpperCase(currentChar)) {
-                    char lower = Character.toLowerCase(currentChar);
-                    ans.append(Character.toUpperCase(permutat[list.indexOf(lower)]));
+            StringBuilder ans = new StringBuilder();
+            List<Character> list = Arrays.asList(fromCharToCharacter(abc));
+
+            for (int i = 0; i < cadena.length(); i++) {
+                permutaAlfabet();  
+                char currentChar = cadena.charAt(i);
+                if (Character.isLetter(currentChar)) {
+                    if (Character.isUpperCase(currentChar)) {
+                        char lower = Character.toLowerCase(currentChar);
+                        ans.append(Character.toUpperCase(permutat[list.indexOf(lower)]));
+                    } else {
+                        ans.append(permutat[list.indexOf(currentChar)]);
+                    }
                 } else {
-                    ans.append(permutat[list.indexOf(currentChar)]);
+                    ans.append(currentChar);  
                 }
-            } else {
-                ans.append(currentChar);  
             }
+            return new TextXifrat(ans.toString().getBytes());
+        } catch (NumberFormatException e) {
+            throw new ClauNoSuportada("La clau per xifrat Polialfabètic ha de ser un String convertible a long.");
         }
-        return ans.toString();
     }
 
-    public String desxifraPoliAlfa(String cadena) {
-        StringBuilder ans = new StringBuilder();
-        List<Character> list;
+    @Override
+    public String desxifra(TextXifrat msg, String clau) throws ClauNoSuportada {
 
-        for (int i = 0; i < cadena.length(); i++) {
-            permutaAlfabet();  
-            char currentChar = cadena.charAt(i);
-            list = Arrays.asList(fromCharToCharacter(permutat));
-            if (Character.isLetter(currentChar)) {
-                if (Character.isUpperCase(currentChar)) {
-                    char lower = Character.toLowerCase(currentChar);
-                    ans.append(Character.toUpperCase(abc[list.indexOf(lower)]));
+        try {
+
+            long clauLong = Long.parseLong(clau);
+            initRandom(clauLong);
+
+            String msgString = msg.toString();
+            StringBuilder ans = new StringBuilder();
+            List<Character> list;
+
+            for (int i = 0; i < msgString.length(); i++) {
+                permutaAlfabet();  
+                char currentChar = msgString.charAt(i);
+                list = Arrays.asList(fromCharToCharacter(permutat));
+                if (Character.isLetter(currentChar)) {
+                    if (Character.isUpperCase(currentChar)) {
+                        char lower = Character.toLowerCase(currentChar);
+                        ans.append(Character.toUpperCase(abc[list.indexOf(lower)]));
+                    } else {
+                        ans.append(abc[list.indexOf(currentChar)]);
+                    }
                 } else {
-                    ans.append(abc[list.indexOf(currentChar)]);
+                    ans.append(currentChar); 
                 }
-            } else {
-                ans.append(currentChar); 
             }
+            return ans.toString();
+        } catch (NumberFormatException e) {
+            throw new ClauNoSuportada("La clau per xifrat Polialfabètic ha de ser un String convertible a long.");
         }
-        return ans.toString();
     }
 
     public static Character[] fromCharToCharacter(char[] array) {
